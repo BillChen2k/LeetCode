@@ -1,1 +1,3 @@
-# LeetCodeDaily
+# LeetCode
+
+My LeetCode problem solutions.
