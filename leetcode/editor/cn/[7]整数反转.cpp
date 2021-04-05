@@ -54,7 +54,35 @@ using namespace std;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 public:
+    int _reverse(int x) {
+        bool minus = false;
+        if (x < 0) {
+            x = -x;
+            minus = true;
+        }
+        int out = 0;
+        do {
+            out *= 10;
+            out += x % 10;
+            x = x / 10;
+        } while(x > 0);
+        if (!minus) {
+            return max(out, 0);
+        }
+        else {
+            return min(0, -out);
+        }
+    }
+
     int reverse(int x) {
+        int upper = 1 << 31 - 1;
+        int lower = - 1<<32;
+        if (x > _reverse(upper) || x < _reverse(lower)) {
+            return 0;
+        }
+        else {
+            return _reverse(x)
+        }
 
     }
 };

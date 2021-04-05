@@ -1,39 +1,17 @@
 //
-// Created by Bill Chen on 2021/2/19.
+// Created by Bill Chen on 2021/4/5.
 //
-/**
- * Definition of SegmentTreeNode:
- * class SegmentTreeNode {
- * public:
- *     int start, end, max;
- *     SegmentTreeNode *left, *right;
- *     SegmentTreeNode(int start, int end, int max) {
- *         this->start = start;
- *         this->end = end;
- *         this->max = max;
- *         this->left = this->right = NULL;
- *     }
- * }
- */
 
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <stack>
 #include <algorithm>
+#include <unordered_map>
 #include <sstream>
 
 using namespace std;
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -44,10 +22,55 @@ struct TreeNode {
 
 class Solution {
 public:
+
+    vector<int> preorder;
+    vector<int> inorder;
+    unordered_map<int, int> inorder_index;
+
+    /**
+     * Get the element position of an vector.
+     * @param vec
+     * @param ele
+     * @return
+     */
+    int pos(vector<int> &vec, int ele) {
+        auto itr = find(vec.begin(), vec.end(), ele);
+        if (itr != vec.end()) {
+            return distance(vec.begin(), itr);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    TreeNode* construct(int pre_left, int pre_right, int in_left, int in_right) {
+        if (pre_left > pre_right || pre_right > preorder.size()) {
+            return NULL;
+        }
+        int pre_root = pre_left;
+        int in_root = inorder_index[preorder[pre_root]];
+        int size_left = in_root - in_left;
+        TreeNode* root = new TreeNode(preorder[pre_root]);
+
+        root->left = construct(pre_left + 1,  pre_left + size_left, in_left, in_root - 1);
+        root->right = construct(pre_left + size_left + 1, pre_right, in_root + 1, in_right);
+        return root;
+    }
+
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-//        TreeNode* root = inorder.rbegin();
+        this->preorder = preorder;
+        this->inorder = inorder;
+        if (preorder.size() == 0) {
+            return NULL;
+        }
+        // Build a hash map of value of inorder -> index in the map.
+        for(int i = 0; i < inorder.size(); i++){
+            inorder_index[inorder[i]] = i;
+        }
+        return construct(0, preorder.size() - 1, 0, preorder.size() - 1);
     }
 };
+
 
 void trimLeftTrailingSpaces(string &input) {
     input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
