@@ -4,6 +4,9 @@
         "algorithm": "cpp",
         "sstream": "cpp",
         "vector": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "iosfwd": "cpp",
+        "string": "cpp",
+        "filesystem": "cpp"
     }
 }

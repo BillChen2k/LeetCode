@@ -24,17 +24,44 @@
 
 // @lc code=start
 class Solution {
-public:
+      public:
+	using ull = unsigned long long;
 
-    // Encodes a URL to a shortened URL.
-    string encode(string longUrl) {
-        
-    }
+	unordered_map<string, pair<ull, string> > urls;
+	const int base = 11;
+	const string code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+	const ull len = code.size();
 
-    // Decodes a shortened URL to its original URL.
-    string decode(string shortUrl) {
-        
-    }
+	ull hashcode(const string &s) {
+		ull hash = 0;
+		for (auto c : s) {
+			hash *= base;
+			hash += (c % base);
+		}
+		return hash;
+	}
+
+	string hash2string(ull n) {
+		string s;
+		while (n != 0) {
+			s += code[n % len];
+			n /= len;
+		}
+		return s;
+	}
+
+	// Encodes a URL to a shortened URL.
+	string encode(string longUrl) {
+		string shortUrl = hash2string(hashcode(longUrl));
+		urls[shortUrl] = make_pair(hashcode(longUrl), longUrl);
+		return "https://tinyurl.com/" + shortUrl;
+	}
+
+	// Decodes a shortened URL to its original URL.
+	string decode(string shortUrl) {
+
+		return urls[shortUrl.replace(0, 20, "")].second;
+	}
 };
 
 // Your Solution object will be instantiated and called as such:
@@ -42,3 +69,16 @@ public:
 // solution.decode(solution.encode(url));
 // @lc code=end
 
+int main() {
+	Solution s;
+	vector<string> raw = {
+	    "https://billc.io/2020/04/latex-relati2nal-algebra/latex-relational-algebra/",
+	    "https://billc.io/2020/04/latex-relati2nal-algebra/",
+	    "https://billc.io/2019/04/pandas-append-excel/",
+	    "https://billc.io/",
+	    "https://billc.io/2019/03/airport-simulation/"};
+	for (auto &str : raw) {
+		s.encode(str);
+	}
+	return 0;
+}
