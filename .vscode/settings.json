@@ -7,6 +7,13 @@
         "stack": "cpp",
         "iosfwd": "cpp",
         "string": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "*.tcc": "cpp",
+        "random": "cpp",
+        "variant": "cpp",
+        "type_traits": "cpp"
     }
 }
