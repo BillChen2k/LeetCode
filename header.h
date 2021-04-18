@@ -7,6 +7,7 @@
 #include <stack>
 #include <unordered_map>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 /**
