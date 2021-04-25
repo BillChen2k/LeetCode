@@ -66,28 +66,24 @@
 class Solution {
       public:
 	ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-		ListNode *p1 = l1;
-		ListNode *p2 = l2;
-		if (p1 == nullptr) {
-			return p2;
+		if ((!l1) || (!l2)) {
+			return l1 ? l1 : l2;
 		}
-		if (p2 == nullptr) {
-			return p1;
-		}
-		if (p1->val > p2->val) {
-			swap(p1, p2);
-		}
-		ListNode *root = p1;
-		while (p1 != nullptr) {
-			if (p2 != nullptr && p1->next != nullptr && p2->val >= p1->val && p2->val <= p1->next->val || p1->next == nullptr && p2 != nullptr) {
-				ListNode *tmp = p1->next;
-				p1->next = new ListNode(p2->val, tmp);
-				p2 = p2->next;
+		ListNode head;
+		ListNode *tail = &head;
+		ListNode *pa = l1, *pb = l2;
+		while (pa && pb) {
+			if (pa->val < pb->val) {
+				tail->next = pa;
+				pa = pa->next;
 			} else {
-				p1 = p1->next;
+				tail->next = pb;
+				pb = pb->next;
 			}
+			tail = tail->next;
 		}
-		return root;
+		tail->next = (pa ? pa : pb);
+		return head.next;
 	}
 };
 // @lc code=end

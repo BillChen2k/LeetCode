@@ -55,41 +55,20 @@ void printer(vector<T> &src) {
 }
 
 class Solution {
-      public:
-	int partition(vector<int> &nums, int p, int r) {
-        // swap;
-        int index = p + rand() % (r - p);
-        swap(nums[r], nums[index]);
-		int pivot = nums[r];
-		int i = p;
-		for (int j = p; j <= r - 1; j++) {
-			if (nums[j] < pivot) {
-				swap(nums[j], nums[i]);
-				i++;
-			}
-		}
-		swap(nums[r], nums[i]);
-		return i;
-	}
+    	public:
 
-	/**
-     * @brief Applying quick sort between [p...r]
-     * 
-     * @param nums 
-     * @param p 
-     * @param r 
-     */
-	void quick_sort(vector<int> &nums, int p, int r) {
-		// printer<int>(nums);
-		if (p < r) {
-			int i = partition(nums, p, r);
-			quick_sort(nums, p, i - 1);
-			quick_sort(nums, i + 1, r);
+	void mergeSort(vector<int> &nums, int l, int r) {
+		if (l > r) {
+			return;
 		}
+		int mid = (l + r) >> 1;
+		mergeSort(nums, l, mid);
+		mergeSort(nums, mid + 1, r);
+		if (l == r) return;
 	}
-
+	
 	vector<int> sortArray(vector<int> &nums) {
-		quick_sort(nums, 0, nums.size() - 1);
+		// quick_sort(nums, 0, nums.size() - 1);
 		return nums;
 	}
 };

@@ -19,6 +19,9 @@
         "__locale": "cpp",
         "functional": "cpp",
         "ostream": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "climits": "cpp",
+        "cmath": "cpp",
+        "queue": "cpp"
     }
 }
