@@ -22,6 +22,7 @@
         "iterator": "cpp",
         "climits": "cpp",
         "cmath": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "unordered_map": "cpp"
     }
 }

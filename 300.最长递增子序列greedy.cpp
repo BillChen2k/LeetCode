@@ -64,25 +64,83 @@
 
 // @lc code=start
 class Solution {
-public:
-    int lengthOfLIS(vector<int>& nums) {
-        if (nums.size() == 0) {
-            return 0;
-        }
-        vector<int> dp(nums.size(), 0);
-        dp[0] = 1;
-        int res = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            dp[i] = 1;
-            for (int j = 0; j < i; j++) {
-                if (nums[i] > nums[j]) {
-                    dp[i] = max(dp[i], dp[j] + 1);
-                }
-            }
-            res = max(res, dp[i]);
-        }
-        return res;
-    }
+      public:
+
+	/**
+	 * @brief Finding the first element from nums[0...bound] that is greater than the target
+	 * 
+	 * @param nums 
+	 * @param bound 
+	 * @param target 
+	 * @return int The index of the target.
+	 */
+	int binarySearchForJ(vector<int> nums, int bound, int target) {
+		int left = 0, right = bound;
+		while (left < right) {
+			int mid = (left + right) >> 1;
+			if (nums[mid] < target) {
+				left = mid + 1;
+			}
+			else {
+				right = mid;
+			}
+		}
+		return left;
+	}
+
+	/**
+	 * @brief Search for the first element in nums that is greater than target.
+	 * 
+	 * @param nums 
+	 * @param bound 
+	 * @param target 
+	 * @return int 
+	 */
+	int linearSearchForJ(vector<int> nums, int bound, int target) {
+		int j = 0;
+		while (1) {
+			if (nums[j] > target) {
+				break;
+			}
+			j++;
+		}
+		return j;
+	}
+
+	/**
+     * @brief Complexity: nlogn
+     * 
+     * @param nums 
+     * @return int 
+     */
+	int lengthOfLIS(vector<int> &nums) {
+		if (nums.size() == 0) {
+			return 0;
+		}
+		vector<int> tail(nums.size() + 1, 10000);
+		int len = 0;
+		tail[0] = nums[0];
+		for (int i = 0; i < nums.size(); i++) {
+			int j = binarySearchForJ(tail, len + 1, nums[i]);
+			if (j > 0 && nums[i] == tail[j - 1]) {
+				// Equals to the end
+				j--;
+			}
+			tail[j] = nums[i];
+			if (j > len) {
+				len++;
+			}
+		}
+		return len + 1;
+	}
 };
 // @lc code=end
 
+int main() {
+	vector<int> arr = {10, 9, 2, 5, 3, 4};
+	Solution s;
+	int ans = s.lengthOfLIS(arr);
+	// vector<int> arr1 = {1,3,5,7,9,10,10};
+	// cout << s.binarySearchForJ(arr1, 5, 6);
+	return 0;
+}
