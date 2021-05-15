@@ -23,6 +23,7 @@
         "climits": "cpp",
         "cmath": "cpp",
         "queue": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "istream": "cpp"
     }
 }
