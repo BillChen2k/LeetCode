@@ -33,25 +33,25 @@
 
 // @lc code=start
 class Solution {
-      private:
-	vector<vector<int>> ans;
+private:
+    vector<vector<int>> result;
 
-	void permute(vector<int> &nums, int len) {
-		if (len == nums.size()) {
-			ans.push_back(nums);
-			return;
-		}
-		for (int i = len; i < nums.size(); i++) {
-			swap(nums[i], nums[len]);
-			permute(nums, len + 1);
-			swap(nums[i], nums[len]);
-		}
-	}
+    void permute(vector<int> &output, int first) {
+        if (first == output.size()) {
+            result.emplace_back(output);
+            return;
+        }
+        for (int i = first; i < output.size(); ++i) {
+            swap(output[first], output[i]);
+            permute(output, i + 1);
+            swap(output[first], output[i]);
+        }
+    }
 
-      public:
-	vector<vector<int>> permute(vector<int> &nums) {
-		permute(nums, 0);
-		return ans;
-	}
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        permute(nums, 0);
+        return result;
+    }
 };
 // @lc code=end

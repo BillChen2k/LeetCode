@@ -32,6 +32,19 @@ struct ListNode {
 	ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+class Node {
+      public:
+	int val;
+	Node *next;
+	Node *random;
+
+	Node(int _val) {
+		val = _val;
+		next = NULL;
+		random = NULL;
+	}
+};
+
 namespace lc {
 void trimLeftTrailingSpaces(string &input) {
 	input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {

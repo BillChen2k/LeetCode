@@ -79,3 +79,8 @@ public:
 };
 // @lc code=end
 
+
+int main() {
+    vector<int> a = {1,2,2,2};
+    Solution().permuteUnique(a);
+}
