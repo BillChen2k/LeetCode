@@ -108,4 +108,41 @@ TreeNode *stringToTreeNode(string input) {
 string boolToString(bool input) {
 	return input ? "True" : "False";
 }
+
+vector<int> stringToIntegerVector(string input) {
+	vector<int> output;
+	trimLeftTrailingSpaces(input);
+	trimRightTrailingSpaces(input);
+	input = input.substr(1, input.length() - 2);
+	stringstream ss;
+	ss.str(input);
+	string item;
+	char delim = ',';
+	while (getline(ss, item, delim)) {
+		output.push_back(stoi(item));
+	}
+	return output;
+}
+
+string integerVectorToString(vector<int> list, int length = -1) {
+	if (length == -1) {
+		length = list.size();
+	}
+
+	if (length == 0) {
+		return "[]";
+	}
+
+	string result;
+	for (int index = 0; index < length; index++) {
+		int number = list[index];
+		result += to_string(number) + ", ";
+	}
+	return "[" + result.substr(0, result.length() - 2) + "]";
+}
+
+int stringToInteger(string input) {
+	return stoi(input);
+}
+
 } // namespace lc
