@@ -24,6 +24,7 @@
         "cmath": "cpp",
         "queue": "cpp",
         "unordered_map": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "map": "cpp"
     }
 }

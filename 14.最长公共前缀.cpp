@@ -49,8 +49,26 @@
 // @lc code=start
 class Solution {
 public:
+    string solve(const vector<string>& strs, int left, int right) {
+        if (left >= right) {
+            return strs[left];
+        }
+        int mid = (left + right) >> 1;
+        string leftCommon = solve(strs, left, mid);
+        string rightCommon = solve(strs, mid + 1, right);
+        string common = "";
+        for (int i = 0; i < min(leftCommon.size(), rightCommon.size()); i++) {
+            if (leftCommon[i] == rightCommon[i]) {
+                common += leftCommon[i];
+            }
+            else {
+                break;
+            }
+        }
+        return common;
+    }
     string longestCommonPrefix(vector<string>& strs) {
-        
+        return solve(strs, 0 , strs.size() - 1);
     }
 };
 // @lc code=end
