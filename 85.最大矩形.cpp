@@ -70,10 +70,47 @@
 
 // @lc code=start
 class Solution {
-public:
-    int maximalRectangle(vector<vector<char>>& matrix) {
+      public:
+	int maximalRectangle(vector<vector<char>> &matrix) {
+		// Execute 84 for each row
+		int maxsize = 0;
+		for (int i = 0; i < matrix.size(); i++) {
+			vector<int> heights(matrix[i].size(), 0);
 
-    }
+            // Calculating the heights
+			for (int j = 0; j < matrix[i].size(); j++) {
+				for (int k = 0; k <= i; k++) {
+					if (matrix[i - k][j] == '1') {
+						heights[j]++;
+					} else {
+						break;
+					}
+				}
+			}  
+
+            // for (auto one : heights) {
+            //     cout << one << " ";
+            // }
+            // cout << endl;
+            
+			// Using an ascending mono stack.
+			stack<int> stk;
+			heights.insert(heights.begin(), 0);
+			heights.push_back(0);
+			stk.push(0);
+			for (int ii = 0; ii < heights.size(); ii++) {
+				while (!stk.empty() && heights[ii] < heights[stk.top()]) {
+					int top = stk.top();
+					stk.pop();
+					int left = stk.top();
+                    int width = ii - left - 1;
+                    int hi = heights[top];
+                    maxsize = max(maxsize, width * hi);
+				}
+                stk.push(ii);
+			}
+		}
+        return maxsize;
+	}
 };
 // @lc code=end
-

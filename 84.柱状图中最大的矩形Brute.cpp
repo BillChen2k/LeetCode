@@ -44,26 +44,28 @@ class Solution {
       public:
 	int largestRectangleArea(vector<int> &heights) {
 		int maxs = 0;
-        heights.insert(heights.begin(), 0);
-        heights.push_back(0);
-        stack<int> stk; // An ascending stack.
-        stk.push(0);
-        for (int i = 0; i < heights.size(); i++) {
-            while (!stk.empty() && heights[i] < heights[stk.top()]) {
-                int top = stk.top();
-                stk.pop();
-                if (stk.empty()) {
-                    maxs = max(maxs, heights[top]);
-                    break;
-                }
-                int left = stk.top();
-                int width =  i - left - 1;
-                int hi = heights[top];
-                maxs = max(hi * width, maxs);
-            }
-            stk.push(i);
-        }
-        return maxs;
+		for (int i = 0; i < heights.size(); i++) {
+			// Expansion
+			int width = 1;
+			// To left
+			for (int j = 1; j < heights.size(); j++) {
+				if (i - j >= 0 && heights[i - j] >= heights[i]) {
+					width++;
+				} else {
+					break;
+				}
+			}
+			// To right
+			for (int j = 1; j < heights.size(); j++) {
+				if (i + j <= heights.size() - 1 && heights[i + j] >= heights[i]) {
+					width++;
+				} else {
+					break;
+				}
+			}
+			maxs = max(maxs, width * heights[i]);
+		}
+		return maxs;
 	}
 };
 // @lc code=end
