@@ -49,10 +49,39 @@
 
 // @lc code=start
 class Solution {
-public:
-    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+      public:
+	vector<vector<int>> ans;
 
-    }
+	void dfs(const vector<int> &nums, vector<int> &current, int sum, int left, int &target) {
+		if (current.size() == 4 && sum == target) {
+			ans.push_back(current);
+			return;
+		}
+		for (int i = left; i < nums.size(); i++) {
+            if (current.size() + nums.size() - i < 4) {
+                return;
+            }
+			if (i > left && nums[i] == nums[i - 1]) { // 去重
+				continue;
+			}
+            // Must convert to int explicitly. -> Because size is unsigned int.
+			if (i + 1 < nums.size() && sum + nums[i] + int(3 - current.size()) * nums[i + 1] > target) {
+				return;
+			}
+			if (i + 1 < nums.size() && sum + nums[i] + int(3 - current.size()) * *nums.rbegin() < target) {
+				continue;
+			}
+			current.push_back(nums[i]);
+			dfs(nums, current, sum + nums[i], i + 1, target);
+			current.pop_back();
+		}
+	}
+    
+	vector<vector<int>> fourSum(vector<int> &nums, int target) {
+		sort(nums.begin(), nums.end());
+		vector<int> current;
+		dfs(nums, current, 0, 0, target);
+		return ans;
+	}
 };
 // @lc code=end
-
