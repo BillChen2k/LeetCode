@@ -87,11 +87,6 @@ class Solution {
 					}
 				}
 			}  
-
-            // for (auto one : heights) {
-            //     cout << one << " ";
-            // }
-            // cout << endl;
             
 			// Using an ascending mono stack.
 			stack<int> stk;

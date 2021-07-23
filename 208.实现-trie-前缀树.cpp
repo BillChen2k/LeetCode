@@ -64,34 +64,81 @@
 
 // @lc code=start
 class Trie {
-public:
 
-    struct TrieNode {
-        char ch;
-        vector<TrieNode *> next;
-    };
+      private:
 
-    TrieNode *root;
+      int removeCounter = 0;
+	struct TrieNode {
+		char ch;
+		vector<TrieNode *> child;
+		bool isEnd = false;
+		TrieNode() {
+			ch = '\0';
+			child = vector<TrieNode *>(27, nullptr);
+		}
+		TrieNode(char ch) {
+			child = vector<TrieNode *>(27, nullptr);
+			this->ch = ch;
+		}
+	};
 
-    /** Initialize your data structure here. */
-    Trie() {
+	TrieNode *searchPrefix(string word) {
+		TrieNode *cur = root;
+		for (char ch : word) {
+			if (cur->child[ch - 'a'] == nullptr) {
+				return nullptr;
+			}
+			cur = cur->child[ch - 'a'];
+		}
+		return cur;
+	}
+
+    void cleanTree() {
 
     }
-    
-    /** Inserts a word into the trie. */
-    void insert(string word) {
-        
-    }
-    
-    /** Returns if the word is in the trie. */
-    bool search(string word) {
 
-    }
-    
-    /** Returns if there is any word in the trie that starts with the given prefix. */
-    bool startsWith(string prefix) {
+      public:
+	TrieNode *root;
 
+	/** Initialize your data structure here. */
+	Trie() {
+		this->root = new TrieNode();
+	}
+
+	/** Inserts a word into the trie. */
+	void insert(string word) {
+		TrieNode *cur = root;
+		for (char ch : word) {
+			if (cur->child[ch - 'a'] == nullptr) {
+				cur->child[ch - 'a'] = new TrieNode(ch);
+			}
+			cur = cur->child[ch - 'a'];
+		}
+		cur->isEnd = true;
+	}
+
+    void remove(string word) {
+        auto res = searchPrefix(word);
+        if (res != nullptr && res->isEnd) {
+            res ->isEnd = false;
+        }
+        if (removeCounter++ > 10) {
+            cleanTree();
+            removeCounter = 0;
+        }
     }
+
+	/** Returns if the word is in the trie. */
+	bool search(string word) {
+		auto res = searchPrefix(word);
+		return res != nullptr && res->isEnd;
+	}
+
+	/** Returns if there is any word in the trie that starts with the given prefix. */
+	bool startsWith(string prefix) {
+		auto res = searchPrefix(prefix);
+		return res != nullptr;
+	}
 };
 
 /**
@@ -102,4 +149,3 @@ public:
  * bool param_3 = obj->startsWith(prefix);
  */
 // @lc code=end
-
