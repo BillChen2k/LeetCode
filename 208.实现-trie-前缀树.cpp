@@ -66,7 +66,6 @@
 class Trie {
 
       private:
-
       int removeCounter = 0;
 	struct TrieNode {
 		char ch;

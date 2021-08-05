@@ -71,13 +71,13 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode *p1 = nullptr;
-        ListNode *p2 = head;
-        while(p2 != nullptr) {
-            ListNode *tmp = p2->next;
+        ListNode* dummyHead = NULL;
+        ListNode *p1 = dummyHead, *p2 = head;
+        while(p2 != NULL) {
+            ListNode *ptmp = p2->next;
             p2->next = p1;
             p1 = p2;
-            p2 = tmp;
+            p2 = ptmp;
         }
         return p1;
     }

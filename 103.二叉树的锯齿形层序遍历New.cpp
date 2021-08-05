@@ -53,45 +53,50 @@
  */
 class Solution {
       public:
+	vector<int> listToNum(vector<TreeNode *> &vec) {
+		vector<int> res;
+		for (auto &one : vec) {
+			if (one) {
+				res.push_back(one->val);
+			}
+		}
+		return res;
+	}
 
 	vector<vector<int>> zigzagLevelOrder(TreeNode *root) {
-		vector<vector<int>> answer;
-		deque<TreeNode *> q;
-		bool right = true;
+		vector<vector<int>> ans;
+		vector<TreeNode *> layer;
 		if (!root) {
-			return answer;
+			return ans;
 		}
-		q.push_back(root);
-		while(!q.empty()) {
-			vector<TreeNode *> layer;
-			vector<int> layernum;
-			int size = q.size();
-			for (int i = 0; i < size; i++) {
-				TreeNode *node;
-				if (right) {
-					node = q.front();
-					q.pop_front();
-					if(node->left)
-						q.push_back(node->left);
-					if (node->right)
-						q.push_back(node->right);
+		bool to_right = false;
+		layer.push_back(root);
+		while (layer.size() > 0) {
+			vector<int> layerNum = listToNum(layer);
+			if (layerNum.size())
+				ans.push_back(layerNum);
+			vector<TreeNode *> next;
+			if (to_right) {
+				for (int i = layer.size() - 1; i >= 0; i--) {
+                    auto one = layer[i];
+					if (one) {
+						next.push_back(one->left);
+						next.push_back(one->right);
+					}
 				}
-				else {
-					node = q.back();
-					q.pop_back();
-					if (node->right)
-						q.push_front(node->right);
-					if (node->left)
-						q.push_front(node->left);
-				}
-				if (node) {
-					layernum.push_back(node->val);
+			} else {
+				for (int i = layer.size() - 1; i >= 0; i--) {
+                    auto one = layer[i];
+					if (one) {
+						next.push_back(one->right);
+						next.push_back(one->left);
+					}
 				}
 			}
-			right = !right;
-			answer.push_back(layernum);
+			layer = next;
+			to_right = !to_right;
 		}
-		return answer;
+		return ans;
 	}
 };
 // @lc code=end
