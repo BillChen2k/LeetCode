@@ -1,3 +1,4 @@
+#include "header.h"
 /*
  * @lc app=leetcode.cn id=72 lang=cpp
  *
@@ -6,11 +7,11 @@
  * https://leetcode-cn.com/problems/edit-distance/description/
  *
  * algorithms
- * Hard (60.77%)
- * Likes:    1620
+ * Hard (61.08%)
+ * Likes:    1727
  * Dislikes: 0
- * Total Accepted:    136.1K
- * Total Submissions: 224K
+ * Total Accepted:    154.6K
+ * Total Submissions: 253.1K
  * Testcase Example:  '"horse"\n"ros"'
  *
  * 给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。
@@ -64,7 +65,7 @@
 class Solution {
 public:
     int minDistance(string word1, string word2) {
-
+        
     }
 };
 // @lc code=end
