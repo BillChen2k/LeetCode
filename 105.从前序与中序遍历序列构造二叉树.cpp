@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #include "header.h"
+=======
+>>>>>>> d0c5930 (Finished some problems.)
 /*
  * @lc app=leetcode.cn id=105 lang=cpp
  *
@@ -7,11 +10,19 @@
  * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/
  *
  * algorithms
+<<<<<<< HEAD
  * Medium (70.16%)
  * Likes:    1147
  * Dislikes: 0
  * Total Accepted:    225.1K
  * Total Submissions: 320.8K
+=======
+ * Medium (70.18%)
+ * Likes:    1146
+ * Dislikes: 0
+ * Total Accepted:    225K
+ * Total Submissions: 320.7K
+>>>>>>> d0c5930 (Finished some problems.)
  * Testcase Example:  '[3,9,20,15,7]\n[9,3,15,20,7]'
  *
  * 给定一棵树的前序遍历 preorder 与中序遍历  inorder。请构造二叉树并返回其根节点。

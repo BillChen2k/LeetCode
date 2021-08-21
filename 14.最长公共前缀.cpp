@@ -71,5 +71,6 @@ public:
         return solve(strs, 0 , strs.size() - 1);
     }
 };
+
 // @lc code=end
 

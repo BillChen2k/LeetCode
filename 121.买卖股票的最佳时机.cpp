@@ -59,7 +59,8 @@ class Solution {
         }
 
 		vector<vector<int>> dp(prices.size(), vector<int>(2, 0));
-
+		// dp[0][0] 表示不持有
+		// dp[0][1] 表示持有
 		dp[0][0] = 0;
 		dp[0][1] = -prices[0];
 
